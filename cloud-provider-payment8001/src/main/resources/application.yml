@@ -11,7 +11,13 @@ spring:
     username: root
     password: "Liu18365432303."
 
-
 mybatis:
   mapperLocations: classpath:mapper/*.xml
   type-aliases-package: com.atguigu.springcloud.entities    # 所有Entity别名类所在包
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka
