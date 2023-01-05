@@ -4,12 +4,12 @@ server:
 spring:
   application:
     name: cloud-payment-service
-datasource:
-  type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
-  driver-class-name: com.mysql.cj.jdbc.Driver              # mysql驱动包 com.mysql.jdbc.Driver
-  url: jdbc:mysql://175.178.160.50:3306/reggie?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
-  username: root
-  password: "Liu18365432303."
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource            # 当前数据源操作类型
+    driver-class-name: com.mysql.cj.jdbc.Driver              # mysql驱动包 com.mysql.jdbc.Driver
+    url: jdbc:mysql://175.178.160.50:3306/db2022?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: "Liu18365432303."
 
 
 mybatis:
