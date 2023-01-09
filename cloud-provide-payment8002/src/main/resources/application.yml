@@ -1,5 +1,5 @@
 server:
-  port: 8001
+  port: 8002
 
 spring:
   application:
@@ -20,11 +20,8 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://localhost:7001/eureka #单机版
-#      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka  # 集群版
+#      defaultZone: http://localhost:7001/eureka
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka  # 集群版
   instance:
-    instance-id: payment8001 #在eureka中显示的id
-    prefer-ip-address: true #显示ip地址——访问路径显示ip地址——鼠标放在id上面在左下角显示
-    lease-renewal-interval-in-seconds: 1 #Eureka客户端向服务器发送心跳的时间间隔，单位秒（默认30秒）
-    #如果服务端配置了，以服务端为准，这样就合理
-    lease-expiration-duration-in-seconds: 2 #Eureka服务端在接收到最后一次心跳后等待时间上限，单位秒（默认90秒），超时剔除
+    instance-id: payment8002 #在eureka中显示这个名字作为id
+    prefer-ip-address: true #显示ip地址

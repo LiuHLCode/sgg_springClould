@@ -1,19 +1,16 @@
-package com.atguigu.springcloud.controlller;
+package springcloud.controlller;
 
 import com.atguigu.springcloud.entities.CommonResult;
 import com.atguigu.springcloud.entities.Payment;
-import com.atguigu.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.netflix.eureka.EurekaDiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springcloud.service.PaymentService;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @USER: Liuhl
@@ -27,8 +24,7 @@ public class PaymentController {
 
     @Value("${server.port}")
     private String serverPort;
-    @Resource
-   private EurekaDiscoveryClient eurekaDiscoveryClient;
+
     @PostMapping(value = "/payment/create")
     public CommonResult create(Payment payment){
         int result = paymentService.create(payment);
@@ -48,18 +44,6 @@ public class PaymentController {
         }else {
             return new CommonResult(444,"没有查到id="+id+"对应的记录",null);
         }
-    }
-    @GetMapping(value ="/payment/discovery")
-    public Object discovery(){
-        List<String> services = eurekaDiscoveryClient.getServices();
-        for (String element : services) {
-            log.info("******element"+element);
-        }
-        List<ServiceInstance> instances = eurekaDiscoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
-        for (ServiceInstance instance : instances) {
-            log.info(instance.getServiceId()+"\t"+instance.getHost()+"\t"+
-                    instance.getPort()+"\t"+instance.getUri());
-        }
-        return this.eurekaDiscoveryClient;
+
     }
 }
