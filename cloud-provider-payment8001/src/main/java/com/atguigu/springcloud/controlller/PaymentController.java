@@ -42,7 +42,7 @@ public class PaymentController {
     @GetMapping (value = "/payment/get/{id}")
     public CommonResult getPaymentById(@PathVariable("id") Long id){
         Payment payment = paymentService.getPaymentById(id);
-        log.info("******插入的结果为："+ payment);
+        log.info("******查询的结果为："+ payment);
         if(payment != null){
             return new CommonResult(200,"查询成功"+serverPort,payment);
         }else {
@@ -61,5 +61,9 @@ public class PaymentController {
                     instance.getPort()+"\t"+instance.getUri());
         }
         return this.eurekaDiscoveryClient;
+    }
+    @GetMapping(value = "/payment/lb")
+    public String getPaymentLB(){
+        return serverPort;
     }
 }

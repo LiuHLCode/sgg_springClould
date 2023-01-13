@@ -25,4 +25,3 @@ public class OrderConsulController
         return result;
     }
 }
-
