@@ -11,9 +11,9 @@ eureka:
     fetch-registry: false
     service-url:
 #      集群指向其他的eureka
-      defaultZone: http://eureka7002.com:7002/eureka/
+#      defaultZone: http://eureka7002.com:7002/eureka/
 #      单机是指向自己
-#      defaultZone: http://eureka7001.com:7001/eureka/
+      defaultZone: http://eureka7001.com:7001/eureka/
       #设置和eureka server交互的地址查询服务和注册服务都需要依赖这个地址
 #      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
   server:
