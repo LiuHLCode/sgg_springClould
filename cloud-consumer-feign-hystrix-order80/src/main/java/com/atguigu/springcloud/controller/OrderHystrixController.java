@@ -1,8 +1,8 @@
 package com.atguigu.springcloud.controller;
 
 import com.atguigu.springcloud.service.PaymentHystrixService;
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +16,9 @@ import javax.annotation.Resource;
  */
 @RestController
 @Slf4j
+//这个是处理全局服务降级的注解，对应写了@HystrixCommand的方法且没有写@DefaultProperties注解指定具体方法，
+//统一用这个指定的
+@DefaultProperties(defaultFallback = "payment_Global_FallbackMethod")
 public class OrderHystrixController {
     @Resource
     private PaymentHystrixService paymentHystrixService;
@@ -26,9 +29,10 @@ public class OrderHystrixController {
         return result;
     }
 
-    @HystrixCommand(fallbackMethod = "paymentTimeOutFallbackMethod",commandProperties = {
-            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "1500")
-    })
+//    @HystrixCommand(fallbackMethod = "paymentTimeOutFallbackMethod",commandProperties = {
+//            @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds",value = "1500")
+//    })
+    @HystrixCommand
     @GetMapping("/consumer/payment/hystrix/timeout/{id}")
     String paymentInfo_OUT(@PathVariable("id") Integer id){
         String result = paymentHystrixService.paymentInfo_OUT(id);
@@ -36,5 +40,8 @@ public class OrderHystrixController {
     }
     public String paymentTimeOutFallbackMethod(@PathVariable("id")Integer id){
         return "我是消费者方，对方支付系统繁忙请10秒后重试，或者检查自己设备状态";
+    }
+    public String payment_Global_FallbackMethod(){
+        return "我是全局服务降级";
     }
 }
